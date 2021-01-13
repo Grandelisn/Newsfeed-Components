@@ -102,7 +102,7 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
-
+ 
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
@@ -114,3 +114,45 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+//function to create articles
+let articleMaker = article => {
+  const artDiv = document.createElement('div');//creates and assigns a new article div
+  const artH2 = document.createElement('h2');//creates and assigns a new article heading2
+  const pgh = document.createElement('p');//creates and assigns a new article paragraph * 4
+  const pgh1 = document.createElement('p');
+  const pgh2 = document.createElement('p');
+  const pgh3 = document.createElement('p');
+  const span = document.createElement('span');//creates and assigns a new article span
+
+  artDiv.classList.add('article');//adds a new div class article 
+  artH2.textContent = article.title;//assigns h2 element to the title key in the article object
+  artDiv.appendChild(artH2);//adds the title node to the div
+  pgh.textContent = article.date;//assigns the value of the date to the p tag*4
+  artDiv.appendChild(pgh);//adds the node to the main article div*4
+  pgh1.textContent = article.firstParagraph;
+  artDiv.appendChild(pgh1);
+  pgh2.textContent = article.secondParagraph;
+  artDiv.appendChild(pgh2);
+  pgh3.textContent = article.thirdParagraph;
+  artDiv.appendChild(pgh3);
+
+  span.classList.add('expandButton');
+  span.textContent = '+';
+  span.addEventListener('click', () => artDiv.classList.toggle('article-open'));
+  artDiv.appendChild(span);
+  return artDiv;
+
+}
+data.push({
+  title: `Title pew pew`,
+  date: `November 03, 1993`,
+  firstParagraph: `Skidow`,
+  secondParagraph: `Boom`,
+  thirdParagraph: `Zap`,
+});
+data.forEach(item => {
+  let artElement = articleMaker(item);
+  let arts = document.querySelector('.articles');
+  arts.appendChild(artElement);
+});
+
